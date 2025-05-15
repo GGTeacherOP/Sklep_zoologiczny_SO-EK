@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('scrollable');
+    const slider = document.querySelector('.scrollable');
     let isDown = false;
     let startX;
     let scrollLeft;
-
+    const slides = document.querySelectorAll('.banner-slide');
+    let currentIndex = 0;
+    
     slider.addEventListener('mousedown', (e) => {
         isDown = true;
         slider.classList.add('active');
@@ -25,7 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 1.5; // prędkość przesuwania
-        slider.scrollLeft = scrollLeft - walk;
+        const scrollSpeed = (x - startX) * 1.5;
+        slider.scrollLeft = scrollLeft - scrollSpeed;
     });
+
+    setInterval(() => {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add('active');
+    }, 4000); 
 })
