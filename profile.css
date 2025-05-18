@@ -1,0 +1,122 @@
+:root {
+  --primary-bg: #f9fafa;
+  --secondary-bg: #000;
+  --primary-text-color: var(--secondary-bg);
+  --secondary-text-color: #fff;
+  --search-bg: var(--secondary-text-color);
+  --category-border-color: #ddd;
+
+  --footer-bg: #f5f5f5;
+  --footer-border-color: #76c893;
+  --footer-primary-text: #333;
+  --footer-social-text-color: #2b7a4b;
+  --footer-social-text-color-hover: #1e5d35;
+
+  --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-md: 1.125rem;  /* 18px */
+  --font-size-lg: 1.25rem;   /* 20px */
+  --font-size-xl: 1.5rem;    /* 24px */
+  --font-size-2xl: 2rem;     /* 32px */
+  --font-size-3xl: 3rem;     /* 48px */
+  --font-weight-bold: 700;
+  --font-weight-regular: 400;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+
+  --border-radius-sm: 4px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 24px;
+  --border-radius-full: 999px;
+
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+  --background-gradient: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+  --profile-container-bg: #fff;
+  --container-padding: 2rem;
+  --container-radius: 15px;
+  --container-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  --title-color: black;
+  --label-color: #333;
+  --input-padding: 0.6rem;
+  --input-radius: 8px;
+  --input-border: 1px solid #ccc;
+  --input-focus-border: green;
+  --button-padding: 0.75rem;
+  --button-bg: yellowgreen;
+  --button-hover-bg: rgb(184, 236, 80);
+  --button-text-color: white;
+  --button-font-size: 1rem;
+  --button-radius: 8px;
+}
+
+body { 
+  margin: 0;
+  font-family: var(--font-family-base);
+  background: var(--background-gradient);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background-color: var(--container-bg);
+  padding: var(--container-padding);
+  border-radius: var(--container-radius);
+  box-shadow: var(--container-shadow);
+  width: 320px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--title-color);
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: var(--label-color);
+}
+
+.login-container input,
+.login-container select {
+  width: 100%;
+  padding: var(--input-padding);
+  margin-bottom: 1rem;
+  border-radius: var(--input-radius);
+  border: var(--input-border);
+  transition: border-color 0.3s;
+}
+
+.login-container input:focus,
+.login-container select:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+}
+
+.login-container button {
+  width: 100%;
+  padding: var(--button-padding);
+  background-color: var(--button-bg);
+  border: none;
+  color: var(--button-text-color);
+  font-size: var(--button-font-size);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: var(--button-hover-bg);
+}
