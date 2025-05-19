@@ -5,7 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let scrollLeft;
     const slides = document.querySelectorAll('.banner-slide');
     let currentIndex = 0;
-    
+    const logoutBtn = document.querySelector(".logout-btn")
+
+
+    const singOutPopup = new Popup({
+        id: "sign-out-popup",
+        title: "Czy napewno chcesz się wylogować?",
+        content: `{btn-confirm}[Wyloguj]`,
+    });
+
     slider.addEventListener('mousedown', (e) => {
         isDown = true;
         slider.classList.add('active');
@@ -36,4 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = (currentIndex + 1) % slides.length;
         slides[currentIndex].classList.add('active');
     }, 4000); 
+
+    logoutBtn.addEventListener("click", () => {
+        singOutPopup.show();
+        document.querySelector(".confirm")?.addEventListener("click", () =>{
+            window.location.href = "home.php?logout=true";
+        });
+    });
 })

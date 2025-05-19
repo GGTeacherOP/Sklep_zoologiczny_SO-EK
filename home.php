@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (isset($_GET["logout"]) && $_GET["logout"] === "true") {
+    session_unset();
+    session_destroy();
+    header("Location: home.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -7,6 +17,7 @@
     <title>Sklep zoologiczny</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -19,10 +30,17 @@
                 <input type="text" placeholder="Szukaj produktów..." >
                 <button><i class="fas fa-search"></i></button>
             </div>
-            <nav class="nav-icons">
-                <a href="#"><i class="fas fa-map-marker-alt"></i> Sklepy</a>
-                <a href="#"><i class="fas fa-shopping-cart"></i> Koszyk</a>
-                <a href="profile.html"><i class="fas fa-user"></i> Moje konto</a>
+            <nav class="nav">
+                <a href="#" class="nav-el"><i class="fas fa-map-marker-alt"></i> Sklepy</a>
+                <a href="#" class="nav-el"><i class="fas fa-shopping-cart"></i> Koszyk</a>
+                <?php if(isset($_SESSION["user_id"])): ?>
+                    <?php if($_SESSION["role"] === "employee"): ?>
+                        <a href="employee_panel.php" class="nav-el"><i class="fas fa-briefcase"></i> Panel pracownika</a>
+                    <?php endif; ?>
+                    <span class="nav-el logout-btn" title="Wyloguj"><i class="fas fa-user"></i> Witaj, <?= htmlspecialchars($_SESSION["user_name"]) ?>!</span>
+                <?php else: ?>
+                    <a href="profile.php" class="nav-el"><i class="fas fa-user"></i> Moje konto</a>
+                <?php endif; ?>
             </nav>
             <div class="bars">
                 <i class="fas fa-bars"></i>
