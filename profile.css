@@ -39,22 +39,13 @@
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.2);
 
   --background-gradient: linear-gradient(135deg, #FFDEE9, #B5FFFC);
-  --profile-container-bg: #fff;
-  --container-padding: 2rem;
-  --container-radius: 15px;
   --container-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  --title-color: black;
-  --label-color: #333;
-  --input-padding: 0.6rem;
-  --input-radius: 8px;
-  --input-border: 1px solid #ccc;
-  --input-focus-border: green;
-  --button-padding: 0.75rem;
-  --button-bg: yellowgreen;
-  --button-hover-bg: rgb(184, 236, 80);
-  --button-text-color: white;
-  --button-font-size: 1rem;
-  --button-radius: 8px;
+  --title-color: var(--secondary-bg);
+  --label-color: var(--footer-primary-text);
+  --input-focus-border: #00ff00;
+  --button-bg: #9acd32;
+  --button-hover-bg: #b8ec50;
+  --button-text-color: #fff;
 }
 
 body { 
@@ -69,8 +60,8 @@ body {
 
 .login-container {
   background-color: var(--container-bg);
-  padding: var(--container-padding);
-  border-radius: var(--container-radius);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
   box-shadow: var(--container-shadow);
   width: 320px;
 }
@@ -92,11 +83,11 @@ body {
 .login-container input,
 .login-container select {
   width: 100%;
-  padding: var(--input-padding);
+  padding: var(--spacing-sm);
   margin-bottom: 1rem;
-  border-radius: var(--input-radius);
-  border: var(--input-border);
-  transition: border-color 0.3s;
+  border-radius: var(--border-radius-md);
+  border: 1px solid #ccc;
+  transition: all 0.3s;
 }
 
 .login-container input:focus,
@@ -107,12 +98,12 @@ body {
 
 .login-container button {
   width: 100%;
-  padding: var(--button-padding);
+  padding: var(--spacing-md);
   background-color: var(--button-bg);
   border: none;
   color: var(--button-text-color);
-  font-size: var(--button-font-size);
-  border-radius: var(--button-radius);
+  font-size: var(--font-size-base);
+  border-radius: var(--border-radius-md);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

@@ -22,7 +22,7 @@
             <nav class="nav-icons">
                 <a href="#"><i class="fas fa-map-marker-alt"></i> Sklepy</a>
                 <a href="#"><i class="fas fa-shopping-cart"></i> Koszyk</a>
-                <a href="profile.html"><i class="fas fa-user"></i> Moje konto</a>
+                <a href="profile.php"><i class="fas fa-user"></i> Moje konto</a>
             </nav>
             <div class="bars">
                 <i class="fas fa-bars"></i>
