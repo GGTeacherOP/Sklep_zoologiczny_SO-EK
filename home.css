@@ -55,7 +55,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin:0 auto;
 }
 
@@ -94,21 +94,22 @@ body {
   cursor: pointer;
 }
 
-.nav-icons {
+.nav {
   display: flex;
   gap: var(--spacing-lg);
 }
 
-.nav-icons a {
+.nav-el {
   color: var(--secondary-text-color);
   text-decoration: none;
   display: flex;
   align-items: center;
   font-weight: bold;
   font-size: var(--font-size-sm);
+  cursor: pointer;
 }
 
-.nav-icons i {
+.nav i {
   margin-right: var(--spacing-xs);
 }
 .bars{
