@@ -111,3 +111,8 @@ body {
 .login-container button:hover {
   background-color: var(--button-hover-bg);
 }
+
+.error-msg {
+  color: red;
+  font-weight: bold;
+}

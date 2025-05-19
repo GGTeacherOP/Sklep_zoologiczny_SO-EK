@@ -54,9 +54,9 @@ body {
 .header-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   max-width: 1200px;
-  margin: 0 auto;
+  margin:0 auto;
 }
 
 .logo {
@@ -256,7 +256,7 @@ body {
   color: var(--footer-primary-text);
 }
 
-@media (max-width: 600px) {
+@media(max-width: 900px){
   .nav-icons {
     display: none;
   }
@@ -264,7 +264,9 @@ body {
   .bars {
     display: block;
   }
+}
 
+@media (max-width: 600px) {
   .mobile-menu.active {
     display: flex;
   }

@@ -22,8 +22,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $query = "SELECT * FROM customers WHERE email = ?";
     }else if($role === "employee"){
         $query = "SELECT * FROM employees WHERE email = ?";
-    }else{
-        $error = "Nieprawidłowa rola.";
     }
 
     if(empty($error)) {
@@ -38,6 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if($password === $user["password_hash"]) {
                 $_SESSION["user_id"] = $user["id"];
                 $_SESSION["role"] = $role;
+                $_SESSION["user_name"] = $user["name"];
 
                 header("Location: home.php");
                 exit();
@@ -66,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <h2>Logowanie</h2>
 
             <?php if (!empty($error)): ?>
-                <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+                <span class="error-msg"><?= htmlspecialchars($error) ?></span>
             <?php endif; ?>
 
             <form action="" method="post">

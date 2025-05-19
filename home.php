@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -22,7 +25,14 @@
             <nav class="nav-icons">
                 <a href="#"><i class="fas fa-map-marker-alt"></i> Sklepy</a>
                 <a href="#"><i class="fas fa-shopping-cart"></i> Koszyk</a>
-                <a href="profile.php"><i class="fas fa-user"></i> Moje konto</a>
+                <?php if(isset($_SESSION["user_id"])): ?>
+                    <a href="profile.php"><i class="fas fa-user"></i> Witaj, <?= htmlspecialchars($_SESSION["user_name"]) ?>!</a>
+                    <?php if($_SESSION["role"] === "employee"): ?>
+                        <a href="employee_panel.php"><i class="fas fa-briefcase"></i> Panel pracownika</a>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <a href="profile.php"><i class="fas fa-user"></i> Moje konto</a>
+                <?php endif; ?>
             </nav>
             <div class="bars">
                 <i class="fas fa-bars"></i>
