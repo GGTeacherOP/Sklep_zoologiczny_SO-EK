@@ -59,7 +59,7 @@ body {
 }
 
 .login-container {
-  background-color: var(--container-bg);
+  background-color: var(--primary-bg);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--container-shadow);
