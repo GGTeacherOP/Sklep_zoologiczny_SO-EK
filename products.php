@@ -1,34 +1,26 @@
 <?php
 session_start();
 
-if (isset($_GET["logout"]) && $_GET["logout"] === "true") {
-    session_unset();
-    session_destroy();
-    header("Location: home.php");
-    exit();
-}
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$dbname = 'zoopet';
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "zoopet";
-
-$conn = mysqli_connect($host, $user, $pass, $dbname);
-
+$conn = mysqli_connect($host, $user, $password, $dbname);
 if (!$conn) {
-    die("Błąd połączenia z bazą danych: " . mysqli_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
+$animal_type_id = $_GET['animal_type'];
 ?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
-    <title>Sklep zoologiczny</title>
+    <title>Przeglądaj produkty</title>
+    <link rel="stylesheet" href="products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
 </head>
 <body>
@@ -59,38 +51,28 @@ if (!$conn) {
             </div>
         </div>
     </header>
-    <main>
-        <section class="banner">
-            <div class="banner-container">
-                <img src="assets/dogs.jpg" class="banner-slide active" alt="Puppies">
-                <img src="assets/cat.jpg" class="banner-slide" alt="Kitten">
-                <img src="assets/bird.jpg" class="banner-slide" alt="Bird">
-                <div class="banner-text"></div>
-            </div>
-        </section>
-
-        <section class="category-wrapper">
-            <h2 class="category-title">Dla kogo dokonujesz zakupu?</h2>
-
-
-            <div class="scroll-container">
-                <div class="categories scrollable">
-                    <?php
-                        $sql = "SELECT * FROM animal_types";
-                        $result = mysqli_query($conn, $sql);
-
-                        while($row = mysqli_fetch_assoc($result)){
-                            echo "<a href=\"products.php?animal_type={$row['id']}\">";
-                            echo "<div class=\"category\">";
-                            echo "<img src=\"{$row['image_url']}\" alt=\"{$row['name']}\">";
-                            echo "<span>{$row['name']}</span>";
-                            echo "</div>";
-                            echo "</a>";
-                        }
-                    ?>
-        </section>
-    </main>
-
+    <h1>Produkty w sklepie zoologicznym</h1>
+    <div class="product-container">
+        <?php
+        $sql = "SELECT * FROM products WHERE animal_type_id = $animal_type_id";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<div class="product-card">';
+                echo '<div class="brand-badge">Tylko u nas</div>';
+                echo '<img src="' . htmlspecialchars($row["image_url"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
+                echo '<div class="product-name">' . htmlspecialchars($row["product_name"]) . '</div>';
+                echo '<div class="product-price">' . htmlspecialchars($row["price"]) . ' zł</div>';
+                echo '<div class="per-kg">(' . number_format($row["price"], 2) . ' zł/kg)</div>';
+                echo '<br><button class="cart-button">🛒</button>';
+                echo '</div>';
+            }
+        } else {
+            echo "<p>No products found.</p>";
+        }
+        mysqli_close($conn);
+        ?>
+    </div>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-info">
