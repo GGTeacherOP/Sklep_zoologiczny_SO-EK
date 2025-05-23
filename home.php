@@ -30,6 +30,7 @@ if (!$conn) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
+    <script src="logout.js"></script>
 </head>
 <body>
     <header class="header">
@@ -44,7 +45,7 @@ if (!$conn) {
             </div>
             <nav class="nav">
                 <a href="#" class="nav-el"><i class="fas fa-map-marker-alt"></i> Sklepy</a>
-                <a href="#" class="nav-el"><i class="fas fa-shopping-cart"></i> Koszyk</a>
+                <a href="tray.php" class="nav-el"><i class="fas fa-shopping-cart"></i> Koszyk</a>
                 <?php if(isset($_SESSION["user_id"])): ?>
                     <?php if($_SESSION["role"] === "employee"): ?>
                         <a href="employee_panel.php" class="nav-el"><i class="fas fa-briefcase"></i> Panel pracownika</a>
@@ -71,7 +72,6 @@ if (!$conn) {
 
         <section class="category-wrapper">
             <h2 class="category-title">Dla kogo dokonujesz zakupu?</h2>
-
 
             <div class="scroll-container">
                 <div class="categories scrollable">

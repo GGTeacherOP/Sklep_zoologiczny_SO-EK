@@ -101,32 +101,3 @@ body {
   border-radius: var(--border-radius-md);
   font-size: var(--font-size-xl);
 }
-
-@media(max-width: 900px){
-  .nav-el {
-    display: none;
-  }
-
-  .bars {
-    display: block;
-  }
-}
-
-@media (max-width: 600px) {
-  .mobile-menu.active {
-    display: flex;
-  }
-
-  .search-bar {
-    flex: 1 1 100%;
-    margin-top: var(--spacing-sm);
-  }
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-info, .footer-social, .footer-bonus {
-    flex: 1 1 100%;
-  }
-}

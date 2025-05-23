@@ -1,51 +1,44 @@
 <?php
 session_start();
 
+if($_SESSION)
+
 $host = 'localhost';
-$user = 'root';
+$username = 'root';
 $password = '';
 $dbname = 'zoopet';
 
-$conn = mysqli_connect($host, $user, $password, $dbname);
+$conn = mysqli_connect($host, $username, $password, $dbname);
+
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-@$customer_id = $_SESSION["user_id"];
-@$animal_type_id = $_GET['animal_type'];
+$sql = "SELECT tray.id, tray.customer_id, tray.product_id, tray.quantity, tray.added_at, products.product_name, products.price, products.description, products.image_url FROM tray JOIN products ON tray.product_id = products.id WHERE customer_id = {$_SESSION['user_id']};";
+$result = mysqli_query($conn, $sql);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $product_id = (int)$_POST['product_id'];
+$products = [];
 
-    $check_sql = "SELECT * FROM tray WHERE customer_id = $customer_id AND product_id = $product_id";
-    $check_result = mysqli_query($conn, $check_sql);
-
-    if (mysqli_num_rows($check_result) > 0) {
-
-        $update_sql = "UPDATE tray SET quantity = quantity + 1 WHERE customer_id = $customer_id AND product_id = $product_id";
-        mysqli_query($conn, $update_sql);
-    } else {
-
-        $insert_sql = "INSERT INTO tray (customer_id, product_id, quantity) VALUES ($customer_id, $product_id, 1)";
-        mysqli_query($conn, $insert_sql);
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $products[] = $row;
     }
-
-    echo "<script>location.replace('products.php?animal_type=" . $animal_type_id . "');</script>";
-    exit();
+} else {
+    echo "Koszyk jest pusty.";
 }
 
+mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Przeglądaj produkty</title>
-    <link rel="stylesheet" href="products.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Koszyk</title>
+    <link rel="stylesheet" href="tray.css">
     <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="logout.js"></script>
-    <script src="products.js"></script>
 </head>
 <body>
     <header class="header">
@@ -75,37 +68,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             </div>
         </div>
     </header>
-    <h1>Produkty w sklepie zoologicznym</h1>
-    <div class="product-container">
-        <?php
-        if(isset($animal_type_id)){
-            $sql = "SELECT * FROM products WHERE animal_type_id = $animal_type_id";
-            $result = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<div class="product-card">';
-                    echo '<div class="brand-badge">Tylko u nas</div>';
-                    echo '<img src="' . htmlspecialchars($row["image_url"]) . '" alt="' . htmlspecialchars($row["product_name"]) . '">';
-                    echo '<div class="product-name">' . htmlspecialchars($row["product_name"]) . '</div>';
-                    echo '<div class="product-price">' . htmlspecialchars($row["price"]) . ' zł</div>';
-                    echo '<div class="per-kg">(' . number_format($row["price"], 2) . ' ' . ($row["category_id"] == 1 ? 'zł/kg' : 'zł') . ')</div>';
-                    echo
-                    '<form method="POST" style="margin-top:10px;">
-                        <input type="hidden" name="product_id" value="' . (int)$row["id"] . '">
-                        <button type="" name="add_to_cart" class="cart-button">🛒</button>
-                    </form>';
-                    echo '</div>';
-                }
-            } else {
-                echo "<p>Brak produktów.</p>";
-            }
-        }else{
-            header("Location: home.php");
-            exit();
-        }
-        
-        mysqli_close($conn);
-        ?>
+    <h1>Koszyk</h1>
+    <div class="tray">
+        <?php foreach ($products as $product): ?>
+            <div class="product">
+                <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" draggable="false">
+                <div class="details">
+                    <h2><?= htmlspecialchars($product['product_name']) ?></h2>
+                    <p><?= htmlspecialchars($product['description']) ?></p>
+                    <p>Ilość: <?= htmlspecialchars($product['quantity']) ?></p>
+                    <p class="price">$<?= number_format($product['price'], 2) ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
     <footer class="footer">
         <div class="footer-container">
