@@ -13,14 +13,14 @@ h1 {
 .tray {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-lg); 
 }
 
 .product {
     display: flex;
-    background: white;
+    background: var(--primary-bg);
     padding: var(--spacing-lg);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-md); 
     box-shadow: var(--shadow-md);
 }
 
